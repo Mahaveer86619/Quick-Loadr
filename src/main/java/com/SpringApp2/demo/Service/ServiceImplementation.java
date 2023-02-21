@@ -18,16 +18,19 @@ public class ServiceImplementation implements AppUserService{
     private final RoleRepo roleRepo;
     @Override
     public AppUser saveUser(AppUser user) {
+        log.info("Saving new User {} to Database.", user.getName());
         return userRepo.save(user);
     }
 
     @Override
     public Role saveRole(Role role) {
+        log.info("Saving new Role {} to Database.", role.getName());
         return roleRepo.save(role);
     }
 
     @Override
     public void addRoleToUser(String username, String rollName) {
+        log.info("Adding new Role {} to User {}.", rollName , username);
         AppUser user = userRepo.findByUsername(username);
         Role role = roleRepo.findByName(rollName);
         user.getRole().add(role);
@@ -35,11 +38,13 @@ public class ServiceImplementation implements AppUserService{
 
     @Override
     public AppUser getUser(String username) {
+        log.info("Fetching user {}", username);
         return userRepo.findByUsername(username);
     }
 
     @Override
     public List<AppUser> getUsers() {
+        log.info("Fetching all users");
         return userRepo.findAll();
     }
 }
